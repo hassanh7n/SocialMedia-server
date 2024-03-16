@@ -77,7 +77,7 @@ const port = 5000;
 const start = async () => {
   try {
     // connectDB
-    await connectDB(process.env.MONGO_URI);
+    await connectDB("mongodb+srv://Hassan:Hassan12345@nodejsexpressjs.yqtqanv.mongodb.net/SOCIAL-MEDIA-API?retryWrites=true&w=majority");
     //await EventsSchema.create(EventsData);
     //await BlogsSchema.create(BlogsData);
     app.listen(port, () => console.log(`Server is listening port ${port}...`));
