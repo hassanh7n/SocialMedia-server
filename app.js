@@ -72,8 +72,8 @@ app.use('/api/v1/posts', authenticateUser, postRoutes)
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
 
-const port = process.env.PORT || 5000;
-
+const port = 5000;
+// console.log(process.env.MONGO_URI);
 const start = async () => {
   try {
     // connectDB
