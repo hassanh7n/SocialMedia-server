@@ -90,7 +90,7 @@ const uploadImage = async(req, res) => {
     // console.log(req.files.img1.tempFilePath)
     // console.log(req.files.img2.tempFilePath)
   const result = await cloudinary.uploader.upload(
-    req.files.images.tempFilePath,
+    req.files.file.tempFilePath,
     // req.files.img1.tempFilePath,
     // req.files.img2.tempFilePath,
     {
@@ -99,7 +99,7 @@ const uploadImage = async(req, res) => {
     }
 
   );
-  fs.unlinkSync(req.files.images.tempFilePath);
+  fs.unlinkSync(req.files.file.tempFilePath);
   // fs.unlinkSync(req.files.img1.tempFilePath);
   // fs.unlinkSync(req.files.img2.tempFilePath);
   console.log(result);
