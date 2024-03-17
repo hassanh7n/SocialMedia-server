@@ -1,9 +1,9 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
-const connectDB = (url) => {
+const connectDB = () => {
   return (
     mongoose.set("strictQuery", false),
-    mongoose.connect(url)
+    mongoose.connect("mongodb+srv://Hassan:Hassan12345@nodejsexpressjs.yqtqanv.mongodb.net/SOCIAL-MEDIA-API?retryWrites=true&w=majority")
   )
 };
 

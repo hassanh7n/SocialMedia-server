@@ -77,7 +77,7 @@ console.log(process.env.MONGO_URI);
 const start = async () => {
   try {
     // connectDB
-    await connectDB(process.env.MONGO_URI);
+    await connectDB();
     //await EventsSchema.create(EventsData);
     //await BlogsSchema.create(BlogsData);
     app.listen(port, () => console.log(`Server is listening port ${port}...`));
