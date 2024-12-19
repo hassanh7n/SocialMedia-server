@@ -16,6 +16,7 @@ const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/user');
 const postRoute = require('./routes/post');
 const postRoutes = require('./routes/postAll');
+const commentRoutes = require('./routes/comment');
 
 // USE V2
 const cloudinary = require('cloudinary').v2;
@@ -65,15 +66,16 @@ app.get('/api/v1', (req, res) => {
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/post', postRoute)
 app.use('/api/v1/user',   userRoutes);
-app.use('/api/v1/posts', authenticateUser, postRoutes)
+app.use('/api/v1/posts', authenticateUser, postRoutes);
+app.use('/api/v1/comments', authenticateUser, commentRoutes);
 
 
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
 
-const port = process.env.PORT || 7000;
-console.log(process.env.MONGO_URI);
+const port = process.env.PORT || 5000;
+// console.log(process.env.MONGO_URI);
 const start = async () => {
   try {
     // connectDB
