@@ -3,6 +3,7 @@ const {StatusCodes} = require('http-status-codes');
 const CustomError = require('../errors');
 const User = require('../models/User');
 const cloudinary = require('cloudinary').v2;
+const Comments = require('../models/Comment');
 const fs = require('fs');
 
 // create post
@@ -35,7 +36,18 @@ const createPost = async(req, res) => {
 // get all posts on feed
 const feedPost = async(req, res) => {
     const posts = await Post.find().sort('-createdAt');
+  //   if (posts.length) {
+  //     for (let i =0; i < posts.length;  i++){
+  //       const postId = (posts[i]._id);
+  //       const comments = await Comments.find({postId : postId})
+  //       console.log(comments);
 
+  //       // if (postId === comments[i].postId){
+  //       //   return console.log(yeah);
+  //       // }
+  //       // return comments
+  // }};
+  
     res.status(StatusCodes.OK).json({
         posts : posts
     })

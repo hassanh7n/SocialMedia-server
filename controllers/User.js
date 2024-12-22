@@ -14,6 +14,24 @@ const getUser = async(req, res) => {
 };
 
 
+// get all users
+const getAllUsers = async(req, res) => {
+    const {name} = req.query;
+    console.log(name)
+    const queryObject = {};
+
+    if(name){
+        queryObject.firstName = { $regex : name, $options : "i"}
+      }
+      let result = User.find(queryObject);
+
+    const user = await result;
+    res.status(StatusCodes.OK).json({
+        user
+    })
+}
+
+
 // user friends
 const getUserFriends = async(req, res) => {
     const {id} = req.params;
@@ -76,5 +94,6 @@ const addRemoveFriends = async(req, res) => {
 module.exports =  {
     getUser, 
     addRemoveFriends, 
-    getUserFriends
+    getUserFriends,
+    getAllUsers
 }

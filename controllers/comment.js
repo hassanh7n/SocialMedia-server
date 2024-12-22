@@ -11,31 +11,63 @@ const CustomError = require('../errors');
 
 const createComment = async(req, res) => {
     const {userId , postId, comment} = req.body;
+            const user = await User.findById({_id : userId});
+          const post = await Post.findById({_id : postId});
+            post.comments.push({
+                comment : comment,
+                bioPic : user.picture,
+                userId : user._id,
+                postId : postId,
+                name : user.firstName + " " + user.lastName
+            })
+            await post.save();
+        //   const updatedPost = await Post.findByIdAndUpdate(
+        //     postId,
+        //     { comment : post.comments },
+        //     { new: true }
+        //   );
+      
+          res.status(200).json(post);
+        
 
-    const user = await User.findById({_id : userId});
-    console.log(user);
+    // const user = await User.findById({_id : userId});
+    // console.log(user);
 
-    const post = await Post.findById({_id : postId});
-
-
-    const comm = await Comment.create({
-        comment : comment,
-        name : user.firstName + user.lastName,
-        bioPic : user.picture,
-        userId,
-        postId
-    })
-
-    await comm.save();
-
+    
+    // const commentCreate = await Comment.create({
+    //     comment : comment,
+    //     name : user.firstName + " " + user.lastName,
+    //     bioPic : user.picture,
+    //     userId : userId,
+    //     postId : postId
+    // })
+    
+    // const post = await Post.findById({_id : postId});
+    
     res.status(StatusCodes.CREATED).json({
-        comm
+        comment : commentCreate
     })
 }
 
+
+const getAllComments = async(req, res) =>{
+    const {id} = req.body;
+    console.log(id);
+    
+
+    const findComments = await Comment.find({postId : id});
+    console.log(findComments);
+
+
+    res.status(StatusCodes.OK).json({
+        comments : findComments
+    })
+    
+}
 
 
 
 module.exports = {
     createComment,
+    getAllComments
 }

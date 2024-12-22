@@ -4,10 +4,10 @@ const router = express.Router();
 
 
 
-const {createComment} = require('../controllers/comment');
+const {createComment, getAllComments} = require('../controllers/comment');
 
 
 router.route('/').post(createComment);
-
+router.route('/getallcomments').post(getAllComments);
 
 module.exports = router;
