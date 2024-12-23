@@ -11,6 +11,7 @@ const CustomError = require('../errors');
 
 const createComment = async(req, res) => {
     const {userId , postId, comment} = req.body;
+    console.log(userId, postId, comment)
             const user = await User.findById({_id : userId});
           const post = await Post.findById({_id : postId});
             post.comments.push({
@@ -27,7 +28,7 @@ const createComment = async(req, res) => {
         //     { new: true }
         //   );
       
-          res.status(200).json(post);
+        //   res.status(200).json(post);
         
 
     // const user = await User.findById({_id : userId});
@@ -43,9 +44,10 @@ const createComment = async(req, res) => {
     // })
     
     // const post = await Post.findById({_id : postId});
+    const result = post.comments.reverse()
     
     res.status(StatusCodes.CREATED).json({
-        comment : commentCreate
+        comment : result
     })
 }
 
