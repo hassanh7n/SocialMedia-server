@@ -1,12 +1,14 @@
 const User = require('../models/User');
 const {StatusCodes} = require('http-status-codes');
 const CustomError = require('../errors');
-
+const Conversation = require('../models/Conversation');
 
 // get user
 
 const getUser = async(req, res) => {
     const { id } = req.params;
+    console.log(id);
+    
     const user = await User.findOne({_id : id});
     res.status(StatusCodes.OK).json({
         user
@@ -17,7 +19,10 @@ const getUser = async(req, res) => {
 // get all users
 const getAllUsers = async(req, res) => {
     const {name} = req.query;
-    console.log(name)
+    if(!name){
+        throw new CustomError("Hey")
+    }
+    console.log(req.query)
     const queryObject = {};
 
     if(name){
@@ -31,6 +36,25 @@ const getAllUsers = async(req, res) => {
     })
 }
 
+// get all users messengers
+const getAllMessengersUsers = async(req, res) => {
+    const {id} = req.params;
+    console.log()
+    const user = await User.findById({_id : id});
+    const users = await User.find({});
+    
+    function checkAdult(user) {
+        return user.friends !== users._id;
+    }
+    
+    
+    const userss = users.filter(checkAdult(users))
+    console.log(userss);
+    
+    res.status(StatusCodes.OK).json({
+        user
+    })
+}
 
 // user friends
 const getUserFriends = async(req, res) => {
@@ -56,11 +80,13 @@ const getUserFriends = async(req, res) => {
 
 // add or remove friends
 const addRemoveFriends = async(req, res) => {
-    console.log(req.params);
-    
     const {id, friendId} = req.params;
+    
+    
+        
     const user  = await User.findById(id);
     const friend = await User.findById(friendId);
+
     if(id === friendId){
         throw new CustomError.BadRequestError("Bad Request")
     }
@@ -95,5 +121,6 @@ module.exports =  {
     getUser, 
     addRemoveFriends, 
     getUserFriends,
-    getAllUsers
+    getAllUsers,
+    getAllMessengersUsers
 }

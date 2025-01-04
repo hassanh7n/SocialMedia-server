@@ -89,8 +89,9 @@ const updatePost = async (req, res) => {
         { likes: post.likes },
         { new: true }
       );
+      const posts = await Post.find({})
   
-      res.status(200).json(updatedPost);
+      res.status(200).json(posts);
     
   };
 

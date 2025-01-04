@@ -17,6 +17,8 @@ const userRoutes = require('./routes/user');
 const postRoute = require('./routes/post');
 const postRoutes = require('./routes/postAll');
 const commentRoutes = require('./routes/comment');
+const messageRoutes = require('./routes/message');
+const conversationRoutes = require('./routes/conversation');
 
 // USE V2
 const cloudinary = require('cloudinary').v2;
@@ -68,7 +70,8 @@ app.use('/api/v1/post', postRoute)
 app.use('/api/v1/user',   userRoutes);
 app.use('/api/v1/posts', authenticateUser, postRoutes);
 app.use('/api/v1/comments', authenticateUser, commentRoutes);
-
+app.use('/api/v1/message', authenticateUser, messageRoutes);
+app.use('/api/v1/conversation',  conversationRoutes)
 
 
 app.use(notFoundMiddleware);

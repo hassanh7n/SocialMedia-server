@@ -23,7 +23,9 @@ const commentSchema = new mongoose.Schema({
         ref : "Post",
         required : true,
     }
-});
+},
+{timestamps : true}
+);
 
 
 
